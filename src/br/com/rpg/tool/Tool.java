@@ -12,8 +12,8 @@ public class Tool {
 		}
 	}
 
-	public Integer random() {
+	public Integer random(Integer dice) {
 		Random randnumber = new Random();
-		return randnumber.nextInt(20);
+		return randnumber.nextInt(dice);
 	}
 }

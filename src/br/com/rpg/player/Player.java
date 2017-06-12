@@ -8,18 +8,18 @@ public class Player {
 
 	protected Scanner read = new Scanner(System.in);
 
-	public String name;
-	public Integer level = 0;
-	public double life = 0;
-	public Integer strength = 0;
-	public String action = "";
+	protected String name;
+	protected Integer level = 0;
+	protected double life = 0;
+	protected Integer strength = 0;
+	protected String action = "";
 
 	public void setName() {
 		this.name = read.next();
 	}
 
-	public void action() {
-		this.action = read.next();
+	public String getAction() {
+		return this.action = read.next();
 	}
 
 	public void rest() {
@@ -41,13 +41,29 @@ public class Player {
 		this.strength = level + 1;
 	}
 
-	public void attack(Monster target) {
-		target.life = target.life - this.strength;
+	public Float attack() {
+		return (float) this.strength;
 
 	}
 
 	public void status() {
 		System.out.println("||||||||||||||\nNome:" + this.name + "\n" + "Level:" + this.level + "\n" + "Vida:"
 				+ this.life + "\n||||||||||||||");
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public Integer getLevel() {
+		return this.level;
+	}
+
+	public double getLife() {
+		return this.life;
+	}
+
+	public void takeDamage(Float targetAttack) {
+		this.life = this.life - targetAttack;
 	}
 }

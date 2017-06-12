@@ -3,7 +3,6 @@ package br.com.rpg.tool;
 import java.util.Random;
 
 public class Tool {
-	static Tool printer = new Tool();
 
 	public static void delay(Integer x) {
 		try {
@@ -17,9 +16,9 @@ public class Tool {
 		Random randnumber = new Random();
 		return randnumber.nextInt(dice);
 	}
-	
-	public static void print(String message){
+
+	public static void print(String message) {
 		System.out.println(message);
 	}
-	
+
 }

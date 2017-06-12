@@ -1,6 +1,8 @@
 package br.com.rpg.player;
 
 import java.util.Scanner;
+
+import br.com.rpg.monster.Monster;
 import br.com.rpg.tool.*;
 
 public class Player {
@@ -9,12 +11,13 @@ public class Player {
 	protected String name;
 	protected Integer level = 0;
 	protected double life = 0;
-	protected Integer strength = 0;
+	protected double strength = 0;
 	protected Integer dexterity = 0;
 	protected String action = "";
 	protected double attack = 0;
 
 	public void createPlayer(Integer level) {
+		setName();
 		this.level = level;
 		this.life = level + 9;
 		this.strength = level;
@@ -22,6 +25,7 @@ public class Player {
 	}
 
 	public void setName() {
+		Tool.print("Qual seu nome?");
 		this.name = read.next();
 	}
 
@@ -47,29 +51,26 @@ public class Player {
 		return (this.life > 0);
 	}
 
-	public double attack() {
-
+	public void attack(Monster target) {
 		this.attack = (this.strength * (Tool.random(20) / 20.0));
 		for (int i = 1; i <= this.dexterity; i++) {
-			if (this.attack > this.strength / 2)
-			{
+			if (this.attack > this.strength / 2) {
 				break;
 			} else {
 				this.attack = 0;
 			}
-
 		}
-		if(this.attack > 0){
+		if (this.attack > 0) {
 			if (this.attack == this.strength) {
 				Tool.print("Você acertou um golpe crítico!!!");
-			}else{
-				Tool.print("Você acertou o inimigo...");
+
+			} else {
+				Tool.print("Você acertou o inimigo. O inimigo perdeu " + this.attack + " pontos de vida."
+						+ " Agora ele possui " + (target.getLife() - this.attack) + " pontos de vida");
 			}
-		}else{
+		} else {
 			Tool.print("Você não acertou o inimigo...");
 		}
-		
-		return this.attack;
 	}
 
 	public String getName() {
@@ -87,7 +88,8 @@ public class Player {
 	public void takeDamage(double targetAttack) {
 		this.life = this.life - targetAttack;
 	}
-	public double getAttack(){
+
+	public double getAttack() {
 		return this.attack;
 	}
 }

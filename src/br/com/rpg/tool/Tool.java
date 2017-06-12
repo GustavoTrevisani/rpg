@@ -3,8 +3,9 @@ package br.com.rpg.tool;
 import java.util.Random;
 
 public class Tool {
+	static Tool printer = new Tool();
 
-	public void delay(Integer x) {
+	public static void delay(Integer x) {
 		try {
 			Thread.sleep(x);
 		} catch (Exception e) {
@@ -12,12 +13,13 @@ public class Tool {
 		}
 	}
 
-	public Integer random(Integer dice) {
+	public static Integer random(Integer dice) {
 		Random randnumber = new Random();
 		return randnumber.nextInt(dice);
 	}
 	
-	public void print(String message){
+	public static void print(String message){
 		System.out.println(message);
 	}
+	
 }

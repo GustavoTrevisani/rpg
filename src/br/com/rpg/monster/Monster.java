@@ -9,7 +9,6 @@ public class Monster {
 	protected Integer strength = 0;
 	protected double attack = 0;
 	protected Integer dexterity = 0;
-	static Tool rn = new Tool();
 
 	public void createMonster(Integer level) {
 		this.level = level - 1;
@@ -20,16 +19,30 @@ public class Monster {
 	}
 
 	public double attack() {
-		this.attack = (this.strength * (rn.random(20) / 20.0));
+
+		this.attack = (this.strength * (Tool.random(20) / 20.0));
 		for (int i = 1; i <= this.dexterity; i++) {
-			if (this.attack > 1.2) {
+			if (this.attack > this.strength / 2)
+			{
 				break;
 			} else {
 				this.attack = 0;
 			}
+
 		}
+		if(this.attack > 0){
+			if (this.attack == this.strength) {
+				Tool.print("Você recebeu um golpe crítico!!!");
+			}else{
+				Tool.print("O inimigo acertou você...");
+			}
+		}else{
+			Tool.print("O inimigo não acertou você...");
+		}
+		
 		return this.attack;
 	}
+
 
 	public boolean isAlive() {
 		return (this.life > 0);
@@ -37,11 +50,14 @@ public class Monster {
 
 	public void status() {
 		System.out
-				.println("||||||||||||||\n" + "Level:" + this.level + "\n" + "Vida:" + this.life + "\n||||||||||||||");
+				.println("||||||||||||||\n" + "---Inimigo---\n" + "Level:" + this.level + "\n" + "Vida:" + this.life + "\n||||||||||||||");
 	}
 
 	public void takeDamage(double targetAttack) {
 		this.life = this.life - targetAttack;
+	}
+	public double getAttack(){
+		return this.attack;
 	}
 
 }

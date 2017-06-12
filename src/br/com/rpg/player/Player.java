@@ -10,10 +10,9 @@ public class Player {
 	protected Integer level = 0;
 	protected double life = 0;
 	protected Integer strength = 0;
-	protected Integer dexterity = 0; // significa a quantidade de vezes que jogará o dado para tentar acertar o inimigo.
+	protected Integer dexterity = 0;
 	protected String action = "";
 	protected double attack = 0;
-	static Tool rn = new Tool();
 
 	public void createPlayer(Integer level) {
 		this.level = level;
@@ -49,14 +48,27 @@ public class Player {
 	}
 
 	public double attack() {
-		this.attack = (this.strength * (rn.random(20) / 20.0));
-		for (int i = 1; i <= this.dexterity; i++) { 
-			if (this.attack > 1.2) {
+
+		this.attack = (this.strength * (Tool.random(20) / 20.0));
+		for (int i = 1; i <= this.dexterity; i++) {
+			if (this.attack > this.strength / 2)
+			{
 				break;
 			} else {
 				this.attack = 0;
 			}
+
 		}
+		if(this.attack > 0){
+			if (this.attack == this.strength) {
+				Tool.print("Você acertou um golpe crítico!!!");
+			}else{
+				Tool.print("Você acertou o inimigo...");
+			}
+		}else{
+			Tool.print("Você não acertou o inimigo...");
+		}
+		
 		return this.attack;
 	}
 
@@ -74,5 +86,8 @@ public class Player {
 
 	public void takeDamage(double targetAttack) {
 		this.life = this.life - targetAttack;
+	}
+	public double getAttack(){
+		return this.attack;
 	}
 }

@@ -1,19 +1,34 @@
 package br.com.rpg.player;
 
 import java.util.Scanner;
+import br.com.rpg.tool.*;
 
 public class Player {
 
 	protected Scanner read = new Scanner(System.in);
-
 	protected String name;
 	protected Integer level = 0;
 	protected double life = 0;
 	protected Integer strength = 0;
+	protected Integer dexterity = 0; // significa a quantidade de vezes que jogará o dado para tentar acertar o inimigo.
 	protected String action = "";
+	protected double attack = 0;
+	static Tool rn = new Tool();
+
+	public void createPlayer(Integer level) {
+		this.level = level;
+		this.life = level + 9;
+		this.strength = level;
+		this.dexterity = level;
+	}
 
 	public void setName() {
 		this.name = read.next();
+	}
+
+	public void status() {
+		System.out.println("||||||||||||||\nNome:" + this.name + "\n" + "Level:" + this.level + "\n" + "Vida:"
+				+ this.life + "\n||||||||||||||");
 	}
 
 	public String getAction() {
@@ -33,20 +48,16 @@ public class Player {
 		return (this.life > 0);
 	}
 
-	public void createPlayer(Integer level) {
-		this.level = level;
-		this.life = level + 10;
-		this.strength = level + 1;
-	}
-
-	public Float attack() {
-		return (float) this.strength;
-
-	}
-
-	public void status() {
-		System.out.println("||||||||||||||\nNome:" + this.name + "\n" + "Level:" + this.level + "\n" + "Vida:"
-				+ this.life + "\n||||||||||||||");
+	public double attack() {
+		this.attack = (this.strength * (rn.random(20) / 20.0));
+		for (int i = 1; i <= this.dexterity; i++) { 
+			if (this.attack > 1.2) {
+				break;
+			} else {
+				this.attack = 0;
+			}
+		}
+		return this.attack;
 	}
 
 	public String getName() {
@@ -61,7 +72,7 @@ public class Player {
 		return this.life;
 	}
 
-	public void takeDamage(Float targetAttack) {
+	public void takeDamage(double targetAttack) {
 		this.life = this.life - targetAttack;
 	}
 }

@@ -16,4 +16,8 @@ public class Tool {
 		Random randnumber = new Random();
 		return randnumber.nextInt(dice);
 	}
+	
+	public void print(String message){
+		System.out.println(message);
+	}
 }

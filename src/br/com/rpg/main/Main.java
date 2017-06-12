@@ -3,6 +3,7 @@ package br.com.rpg.main;
 import br.com.rpg.monster.Monster;
 import br.com.rpg.player.Player;
 import br.com.rpg.battle.*;
+import br.com.rpg.frame.Janela;
 
 public class Main {
 
@@ -15,6 +16,7 @@ public class Main {
 		monster.createMonster(player.getLevel());
 
 		Battle.batalha(player, monster);
+		Janela.window();
 
 	}
 }

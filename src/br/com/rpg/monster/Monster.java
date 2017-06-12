@@ -61,5 +61,4 @@ public class Monster {
 	public double getAttack() {
 		return this.attack;
 	}
-
 }

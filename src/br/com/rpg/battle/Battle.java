@@ -5,6 +5,7 @@ import br.com.rpg.player.*;
 import br.com.rpg.tool.Tool;
 
 public class Battle {
+	
 
 	public static void batalha(Player player, Monster monster) {
 		Tool.print("Você encontrou um inimigo.");

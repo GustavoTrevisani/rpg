@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Tool {
 
-	public void delay(int x) {
+	public void delay(Integer x) {
 		try {
 			Thread.sleep(x);
 		} catch (Exception e) {

@@ -2,8 +2,6 @@ package br.com.rpg.player;
 
 import java.util.Scanner;
 
-import br.com.rpg.monster.Monster;
-
 public class Player {
 
 	protected Scanner read = new Scanner(System.in);

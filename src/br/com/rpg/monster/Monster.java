@@ -1,5 +1,7 @@
 package br.com.rpg.monster;
 
+import java.math.BigDecimal;
+
 import javax.swing.JOptionPane;
 
 import br.com.rpg.player.Player;
@@ -24,7 +26,9 @@ public class Monster {
 	}
 
 	public void attack(Player target) {
-		this.attack = (this.strength * (Tool.random(20) / 20.0));
+		BigDecimal df = new BigDecimal((this.strength * (Tool.random(20) / 20.0)));
+		df.setScale(1,BigDecimal.ROUND_CEILING);
+		this.attack = df.abs().doubleValue();
 		for (int i = 1; i <= this.dexterity; i++) {
 			if (this.attack > this.strength / 2) {
 				break;
@@ -54,7 +58,7 @@ public class Monster {
 				+ "\n||||||||||||||");
 	}
 
-	public void takeDamage(double targetAttack) {
+	public void takeDamage(double targetAttack) {		
 		this.life = this.life - targetAttack;
 	}
 

@@ -1,5 +1,6 @@
 package br.com.rpg.battle;
 
+
 import br.com.rpg.monster.Monster;
 import br.com.rpg.player.*;
 import br.com.rpg.tool.Tool;
@@ -21,5 +22,5 @@ public class Battle {
 		
 		
 	}
-
 }
+

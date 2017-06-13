@@ -1,24 +1,26 @@
 package br.com.rpg.player;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import br.com.rpg.monster.Monster;
 import br.com.rpg.tool.*;
 
-public class Player {
 
+public class Player {
+	
 	protected Scanner read = new Scanner(System.in);
 	public String name;
 	protected Integer level = 0;
 	protected double life = 0;
 	protected double maxlife = 0;
-	protected double strength = 0;
+	public double strength = 0;
 	protected double maxstrength = 0;
 	protected Integer dexterity = 0;
 	protected Integer maxdexterity = 0;
 	protected String action = "";
 	protected double attack = 0;
-	protected double souls = 1;
+	protected Integer souls = 1;
 
 	public void createPlayer(Integer level) {
 		setName();
@@ -99,7 +101,10 @@ public class Player {
 	}
 
 	public void attack(Monster target) {
-		this.attack = (this.strength * (Tool.random(20) / 20.0));
+		BigDecimal df = new BigDecimal((this.strength * (Tool.random(20) / 20.0)));
+		df.setScale(1,BigDecimal.ROUND_CEILING);
+		
+		this.attack = df.abs().doubleValue();
 		for (int i = 1; i <= this.dexterity; i++) {
 			if (this.attack > this.strength / 2) {
 				break;

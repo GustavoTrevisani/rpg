@@ -1,5 +1,7 @@
 package br.com.rpg.monster;
 
+import javax.swing.JOptionPane;
+
 import br.com.rpg.player.Player;
 import br.com.rpg.tool.*;
 
@@ -10,12 +12,14 @@ public class Monster {
 	protected double strength = 0;
 	protected double attack = 0;
 	protected Integer dexterity = 0;
+	protected Integer souls = 0;
 
 	public void createMonster(Integer level) {
 		this.level = level;
 		this.life = this.level + 9 - 1;
 		this.strength = this.level + 1 - 1;
 		this.dexterity = this.level + 1 - 1;
+		this.souls = this.level;
 
 	}
 
@@ -30,14 +34,14 @@ public class Monster {
 		}
 		if (this.attack > 0) {
 			if (this.attack == this.strength) {
-				Tool.print("Você recebeu um golpe crítico!!!");
+			Tool.dialog("Dano máximo!", "Você recebeu um golpe crítico!!!", 2);
 
 			} else {
-				Tool.print("O inimigo acertou você. Você perdeu " + this.attack + " pontos de vida."
-						+ " Agora você possui " + (target.getLife() - this.attack) + " pontos de vida");
+			Tool.dialog("Recebeu um golpe!","O inimigo acertou você. Você perdeu " + this.attack + " pontos de vida."
+						+ " Agora você possui " + (target.getLife() - this.attack) + " pontos de vida",2);
 			}
 		} else {
-			Tool.print("O inimigo não acertou você...");
+		Tool.dialog("Escapou!","O inimigo não acertou você...",2);
 		}
 	}
 

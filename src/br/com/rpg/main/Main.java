@@ -13,12 +13,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// Tool.print("teste");
+		
 		hero.createPlayer(5); // criando status do player com o level "1"
-		// hero.upgradeStatus(Tool.inputDialog("Teste", "Atributo", 3));
 		enemy.createMonster(hero.getLevel());
-		// hero.status();
-		Battle.batalha(hero, enemy);
+		
+		hero.status();
+		hero.upgradeStatus();
+		hero.status();
 
 	}
 }

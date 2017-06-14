@@ -1,9 +1,7 @@
 package br.com.rpg.player;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 import br.com.rpg.monster.Monster;
 import br.com.rpg.tool.*;
 
@@ -20,7 +18,7 @@ public class Player {
 	protected Integer maxdexterity = 0;
 	protected String action = "";
 	protected float attack = 0;
-	protected Integer souls = 0;
+	protected Integer souls = 100;
 	protected String damage = "";
 	protected DecimalFormat decimal = new DecimalFormat("0.00");
 
@@ -35,13 +33,14 @@ public class Player {
 		this.dexterity = this.maxdexterity;
 	}
 
-	public void upgradeStatus(String atributo) {
+	public void upgradeStatus() {
+		
 		int x = 0;
-		String stat = atributo;
+		String stat = Tool.inputDialog("Upgrade de atributo", "Qual atributo, você deseja aprimorar?", 3);
 		while (x == 0) {
 
 			if (stat.equalsIgnoreCase("life")) {
-				if (this.souls > (this.level * 2)) {
+				if (this.souls >= (this.level * 2)) {
 					this.maxlife++;
 					this.life = this.maxlife;
 					this.souls = this.souls - (this.level * 2);
@@ -52,7 +51,7 @@ public class Player {
 					break;
 				}
 			} else if (stat.equalsIgnoreCase("strength")) {
-				if (this.souls > (this.level * 2)) {
+				if (this.souls >= (this.level * 2)) {
 					this.maxstrength++;
 					this.strength = this.maxstrength;
 					this.souls = this.souls - (this.level * 2);
@@ -63,7 +62,7 @@ public class Player {
 					break;
 				}
 			} else if (stat.equalsIgnoreCase("dexterity")) {
-				if (this.souls > (this.level * 2)) {
+				if (this.souls >= (this.level * 2)) {
 					this.maxdexterity++;
 					this.dexterity = this.maxdexterity;
 					this.souls = this.souls - (this.level * 2);
@@ -75,7 +74,7 @@ public class Player {
 				}
 			} else {
 				Tool.dialog("Atributo Inválido", "Você não digitou corretamente...", 3);
-				stat = Tool.inputDialog("Teste", "Atributo", 3);
+				stat = Tool.inputDialog("Upgrade de atributo", "Qual atributo, você deseja aprimorar?", 3);
 			}
 		}
 		x = 0;

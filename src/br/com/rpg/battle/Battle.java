@@ -8,8 +8,8 @@ public class Battle {
 
 	public static void batalha(Player hero, Monster enemy) {
 		Tool.print("Você encontrou um inimigo.");
-		// player.status();
-		// monster.status();
+		 hero.status();
+		 enemy.status();
 		while (hero.isAlive() && enemy.isAlive()) {
 			hero.attack(enemy);
 			enemy.takeDamage(hero.getAttack());
@@ -20,9 +20,5 @@ public class Battle {
 				break;
 			}
 		}
-
-		// player.status();
-		// monster.status();
-
 	}
 }

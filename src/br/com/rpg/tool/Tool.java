@@ -22,10 +22,12 @@ public class Tool {
 	public static void print(String message) {
 		System.out.println(message);
 	}
-	public static void dialog(String title, String message, int icon){
+
+	public static void dialog(String title, String message, int icon) {
 		JOptionPane.showMessageDialog(null, message, title, icon);
 	}
-	public static String inputDialog(String title, String message, int icon){
+
+	public static String inputDialog(String title, String message, int icon) {
 		return (String) JOptionPane.showInputDialog(null, message, title, icon);
 	}
 }

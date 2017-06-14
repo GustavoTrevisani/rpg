@@ -1,26 +1,28 @@
 package br.com.rpg.battle;
 
-
 import br.com.rpg.monster.Monster;
 import br.com.rpg.player.*;
 import br.com.rpg.tool.Tool;
 
 public class Battle {
 
-	public static void batalha(Player player, Monster monster) {
+	public static void batalha(Player hero, Monster enemy) {
 		Tool.print("Você encontrou um inimigo.");
-		//player.status();
-		//monster.status();
-		player.attack(monster);
-		monster.takeDamage(player.getAttack());
-		monster.attack(player);
-		player.takeDamage(monster.getAttack());
-		//player.status();
-		//monster.status();
-		
-		
-		
-		
+		// player.status();
+		// monster.status();
+		while (hero.isAlive() && enemy.isAlive()) {
+			hero.attack(enemy);
+			enemy.takeDamage(hero.getAttack());
+			if (enemy.isAlive()) {
+				enemy.attack(hero);
+				hero.takeDamage(enemy.getAttack());
+			} else {
+				break;
+			}
+		}
+
+		// player.status();
+		// monster.status();
+
 	}
 }
-

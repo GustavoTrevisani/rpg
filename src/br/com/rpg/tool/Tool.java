@@ -9,7 +9,7 @@ import br.com.rpg.player.Player;
 
 public class Tool {
 
-	public static String[] opções = { "a", "b" };
+	
 
 	public static void delay(Integer x) {
 		try {
@@ -36,7 +36,7 @@ public class Tool {
 		return (String) JOptionPane.showInputDialog(null, message, title, icon);
 	}
 
-	public static Integer inputDialogOptions(String title, String message, String[] options){
-		return  JOptionPane.showOptionDialog(null, message, title, 0, 0, null, options, "teste");
+	public static Integer inputDialogOptions(String title, String message, String[] options) {
+		return JOptionPane.showOptionDialog(null, message, title, 0, 0, null, options, options[0]);
 	}
 }

@@ -2,6 +2,8 @@ package br.com.rpg.player;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
+
+import br.com.rpg.battle.Battle;
 import br.com.rpg.monster.Monster;
 import br.com.rpg.tool.*;
 
@@ -16,15 +18,12 @@ public class Player {
 	protected float maxstrength = 0;
 	protected Integer dexterity = 0;
 	protected Integer maxdexterity = 0;
-	protected String action = "";
+	protected static String action = "";
 	protected float attack = 0;
 	protected Integer souls = 0;
 	protected String damage = "";
 	protected DecimalFormat decimal = new DecimalFormat("0.00");
-	protected String[] options = {"Atacar","Fugir","Descansar","Sair"};
-	protected String[] opçãs = new String[10];
-	
-	
+	protected static String[] options = new String[10];
 
 	public void createPlayer(Integer level) {
 		setName();
@@ -106,29 +105,36 @@ public class Player {
 			Tool.dialog("Restaurando vida",
 					"Você restaurou 1 ponto de vida, agora você possui " + this.life + " pontos de vida!", 0);
 		} else {
-			System.out.println("Você já está totalmente restaurado!");
+			Tool.dialog("Negado", "Você já está totalmente restaurado!", 0);
 		}
 	}
 
 	public void attack(Monster target) {
 		for (int i = 1; i <= this.dexterity; i++) {
 			this.attack = (this.strength * (Tool.random(20).floatValue() / 20));
-			damage = decimal.format(target.getLife() - this.attack);
 			if (this.attack > this.strength / 2) {
+				damage = decimal.format(target.getLife() - this.attack);
 				break;
 			} else {
 				this.attack = 0;
 			}
 		}
-		if (this.attack > 0) {
-			if (this.attack == this.strength) {
-				Tool.dialog("Dano Máximo!", "Você acertou um golpe crítico!!!", 2);
+		if ((target.getLife()-this.attack) > 0) {
+			if (this.attack > 0) {
+				if (this.attack == this.strength) {
+					Tool.dialog("Dano Máximo!", "Você acertou um golpe crítico!!!", 2);
+					target.takeDamage(getAttack());
+				} else {
+					Tool.dialog("Causou um golpe!.", "Você acertou o inimigo. O inimigo perdeu " + this.attack
+							+ " pontos de vida." + " Agora ele possui " + damage + " pontos de vida", 2);
+					target.takeDamage(getAttack());
+				}
 			} else {
-				Tool.dialog("Causou um golpe!.", "Você acertou o inimigo. O inimigo perdeu " + this.attack
-						+ " pontos de vida." + " Agora ele possui " + damage + " pontos de vida", 2);
+				Tool.dialog("Errou", "Você não acertou o inimigo...", 2);
 			}
 		} else {
-			Tool.dialog("Errou", "Você não acertou o inimigo...", 2);
+			Tool.dialog("Vitória", "O inimigo perdeu " + this.attack + " pontos de vida. Você derrotou o inimigo!", 2);
+			target.takeDamage(getAttack());
 		}
 	}
 
@@ -140,11 +146,9 @@ public class Player {
 	}
 
 	public String getAction() {
-		for(int i = 0; i<opçãs.length; i++){
-			opçãs[i] = "***";
-		}
-		return this.action = options[Tool.inputDialogOptions("Momento de decidir...", "O que você deseja fazer?", opçãs)];
-		}
+		setOptions();
+		return action = options[Tool.inputDialogOptions("Momento de decidir...", "O que você deseja fazer?", options)];
+	}
 
 	public String getName() {
 		return this.name;
@@ -160,5 +164,65 @@ public class Player {
 
 	public float getAttack() {
 		return this.attack;
+	}
+
+	public void setOptions() {
+		for (int i = 0; i < options.length; i++) {
+			options[i] = "***";
+		}
+		if (Battle.isBattleOn()) {
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Atacar";
+					break;
+				}
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Hero Status";
+					break;
+				}
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Enemy Status";
+					break;
+				}
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Fugir";
+					break;
+				}
+			}
+		}
+		if (!Battle.isBattleOn()) {
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Descansar";
+					break;
+				}
+
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Hero Status";
+					break;
+				}
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Upgrade";
+					break;
+				}
+
+			}
+			for (int i = 0; i < options.length; i++) {
+				if (options[i].equals("***")) {
+					options[i] = "Explorar Dungeon";
+					break;
+				}
+			}
+		}
 	}
 }

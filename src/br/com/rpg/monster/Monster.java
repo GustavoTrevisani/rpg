@@ -31,23 +31,30 @@ public class Monster {
 	public void attack(Player target) {
 		for (int i = 1; i <= this.dexterity; i++) {
 			this.attack = (this.strength * (Tool.random(20).floatValue() / 20));
-			damage = decimal.format(target.getLife() - this.attack);
 			if (this.attack > this.strength / 2) {
+				damage = decimal.format(target.getLife() - this.attack);
+
 				break;
 			} else {
 				this.attack = 0;
 			}
 		}
-		if (this.attack > 0) {
-			if (this.attack == this.strength) {
-				Tool.dialog("Dano máximo!", "Você recebeu um golpe crítico!!!", 2);
-
+		if ((target.getLife()-this.attack) > 0) {
+			if (this.attack > 0) {
+				if (this.attack == this.strength) {
+					Tool.dialog("Dano Máximo!", "Você recebeu um golpe crítico!!!", 2);
+					target.takeDamage(getAttack());
+				} else {
+					Tool.dialog("Recebeu um golpe!.", "O inimigo acertou você. Você perdeu " + this.attack
+							+ " pontos de vida." + " Agora você possui " + damage + " pontos de vida", 2);
+					target.takeDamage(getAttack());
+				}
 			} else {
-				Tool.dialog("Recebeu um golpe!", "O inimigo acertou você. Você perdeu " + this.attack
-						+ " pontos de vida." + " Agora você possui " + damage + " pontos de vida", 2);
+				Tool.dialog("Escapou", "O inimigo não acertou você...", 2);
 			}
 		} else {
-			Tool.dialog("Escapou!", "O inimigo não acertou você...", 2);
+			Tool.dialog("Perdeu", "Você perdeu " + this.attack + " pontos de vida. Você foi derrotado!", 2);
+			target.takeDamage(getAttack());
 		}
 	}
 

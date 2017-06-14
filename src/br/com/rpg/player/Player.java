@@ -18,9 +18,13 @@ public class Player {
 	protected Integer maxdexterity = 0;
 	protected String action = "";
 	protected float attack = 0;
-	protected Integer souls = 100;
+	protected Integer souls = 0;
 	protected String damage = "";
 	protected DecimalFormat decimal = new DecimalFormat("0.00");
+	protected String[] options = {"Atacar","Fugir","Descansar","Sair"};
+	protected String[] opçãs = new String[10];
+	
+	
 
 	public void createPlayer(Integer level) {
 		setName();
@@ -34,7 +38,7 @@ public class Player {
 	}
 
 	public void upgradeStatus() {
-		
+
 		int x = 0;
 		String stat = Tool.inputDialog("Upgrade de atributo", "Qual atributo, você deseja aprimorar?", 3);
 		while (x == 0) {
@@ -136,8 +140,11 @@ public class Player {
 	}
 
 	public String getAction() {
-		return this.action = Tool.inputDialog("teste", "teste", 0);
-	}
+		for(int i = 0; i<opçãs.length; i++){
+			opçãs[i] = "***";
+		}
+		return this.action = options[Tool.inputDialogOptions("Momento de decidir...", "O que você deseja fazer?", opçãs)];
+		}
 
 	public String getName() {
 		return this.name;

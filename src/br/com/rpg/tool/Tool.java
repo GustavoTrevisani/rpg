@@ -2,9 +2,14 @@ package br.com.rpg.tool;
 
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import br.com.rpg.player.Player;
+
 public class Tool {
+
+	public static String[] opções = { "a", "b" };
 
 	public static void delay(Integer x) {
 		try {
@@ -29,5 +34,9 @@ public class Tool {
 
 	public static String inputDialog(String title, String message, int icon) {
 		return (String) JOptionPane.showInputDialog(null, message, title, icon);
+	}
+
+	public static Integer inputDialogOptions(String title, String message, String[] options){
+		return  JOptionPane.showOptionDialog(null, message, title, 0, 0, null, options, "teste");
 	}
 }

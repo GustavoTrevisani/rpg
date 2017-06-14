@@ -17,9 +17,8 @@ public class Main {
 		hero.createPlayer(5); // criando status do player com o level "1"
 		enemy.createMonster(hero.getLevel());
 		
-		hero.status();
-		hero.upgradeStatus();
-		hero.status();
+		
+		hero.getAction();
 
 	}
 }

@@ -39,7 +39,9 @@ public class Player {
 	public void upgradeStatus() {
 
 		int x = 0;
-		String stat = Tool.inputDialog("Upgrade de atributo", "Qual atributo, você deseja aprimorar?", 3);
+		String[] options = { "Life", "Strength", "Dexterity" };
+		String stat = options[Tool.inputDialogOptions("Upgrade de atributo", "Qual atributo você quer melhorar?",
+				options)];
 		while (x == 0) {
 
 			if (stat.equalsIgnoreCase("life")) {
@@ -91,8 +93,8 @@ public class Player {
 	}
 
 	public void status() {
-		Tool.dialog("Status do Personagem", "Nome:" + this.name + "\n" + "Level:" + this.level + "\n" + "Vida:"
-				+ this.life + "\n" + "Força:" + this.strength + "\n" + "Dextreza:" + this.dexterity, 1);
+		Tool.dialog("Status do Personagem", "Nome: " + this.name + "\n" + "Level: " + this.level + "\n" + "Vida: "
+				+ this.life + "\n" + "Força: " + this.strength + "\n" + "Dextreza: " + this.dexterity, 1);
 	}
 
 	public boolean isAlive() {
@@ -119,7 +121,7 @@ public class Player {
 				this.attack = 0;
 			}
 		}
-		if ((target.getLife()-this.attack) > 0) {
+		if ((target.getLife() - this.attack) > 0) {
 			if (this.attack > 0) {
 				if (this.attack == this.strength) {
 					Tool.dialog("Dano Máximo!", "Você acertou um golpe crítico!!!", 2);

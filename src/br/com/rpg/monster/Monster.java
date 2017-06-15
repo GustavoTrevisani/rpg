@@ -33,7 +33,6 @@ public class Monster {
 			this.attack = (this.strength * (Tool.random(20).floatValue() / 20));
 			if (this.attack > this.strength / 2) {
 				damage = decimal.format(target.getLife() - this.attack);
-
 				break;
 			} else {
 				this.attack = 0;
@@ -63,8 +62,7 @@ public class Monster {
 	}
 
 	public void status() {
-		System.out.println("||||||||||||||\n" + "---Inimigo---\n" + "Level:" + this.level + "\n" + "Vida:" + this.life
-				+ "\n||||||||||||||");
+		Tool.dialog("Status do Inimigo", "---Inimigo---\n" + "Level: " + this.level + "\n" + "Vida: " + this.life, 1);
 	}
 
 	public void takeDamage(float targetAttack) {

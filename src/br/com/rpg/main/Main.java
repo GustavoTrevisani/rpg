@@ -15,10 +15,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		hero.createPlayer(1); // criando status do player com o level "1"
-		enemy.createMonster(hero.getLevel());
-		while(hero.isAlive()){
-		ActionHandler.runAction(hero,enemy);
+		while (hero.isAlive()) {
+			ActionHandler.runAction(hero, enemy);
 		}
-
 	}
 }

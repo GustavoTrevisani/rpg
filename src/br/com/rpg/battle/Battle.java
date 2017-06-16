@@ -11,13 +11,13 @@ public class Battle {
 
 	public static void Batalha(Player hero, Monster enemy) {
 		Tool.dialog("Prepare-se", "Você encontrou um inimigo", 2);
-		while (hero.isAlive() && enemy.isAlive()&& battle_on) {
-			ActionHandler.runAction(hero,enemy);
-			if (enemy.isAlive()&& battle_on) {
+		while (hero.isAlive() && enemy.isAlive() && battle_on) {
+			ActionHandler.runAction(hero, enemy);
+			if (enemy.isAlive() && battle_on) {
 				enemy.attack(hero);
-				hero.takeDamage(enemy.getAttack());
-			} else {
+ 			} else {
 				battle_on = false;
+				hero.setSouls(enemy);
 				break;
 			}
 		}
@@ -26,8 +26,9 @@ public class Battle {
 	public static boolean isBattleOn() {
 		return battle_on;
 	}
-	public static void setBattleOn(boolean set){
+
+	public static void setBattleOn(boolean set) {
 		battle_on = set;
-		
+
 	}
 }

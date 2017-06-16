@@ -1,15 +1,9 @@
 package br.com.rpg.tool;
 
 import java.util.Random;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import br.com.rpg.player.Player;
-
 public class Tool {
-
-	
 
 	public static void delay(Integer x) {
 		try {

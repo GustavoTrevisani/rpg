@@ -41,8 +41,12 @@ public class ActionHandler {
 			enemy.createMonster(hero.getLevel());
 			Battle.Batalha(hero, enemy);
 		}
-		if (action.equalsIgnoreCase("***")) {
+		if (action.equalsIgnoreCase("Poção de vida")) {
+			hero.useHealthPotion();
 			ActionHandler.runAction(hero, enemy);
+		}if (action.equalsIgnoreCase("Comprar Poção de vida")) {
+			hero.buyHealthPotion();
+			
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Monster {
 	protected float attack = 0;
 	protected Integer dexterity = 0;
 	protected Integer souls = 0;
-	DecimalFormat df = new DecimalFormat("#.##");
+	DecimalFormat formated_float = new DecimalFormat("#.##");
 
 	public void createMonster(Integer level) {
 		this.level = level;
@@ -40,7 +40,7 @@ public class Monster {
 				} else {
 					Tool.dialog("Recebeu um golpe!.",
 							"O inimigo acertou você. Você perdeu " + this.attack + " pontos de vida."
-									+ " Agora você possui " + df.format(target.getLife() - this.attack)
+									+ " Agora você possui " + formated_float.format(target.getLife() - this.attack)
 									+ " pontos de vida",
 							2);
 					target.takeDamage(getAttack());
@@ -49,7 +49,9 @@ public class Monster {
 				Tool.dialog("Escapou", "O inimigo não acertou você...", 2);
 			}
 		} else {
-			Tool.dialog("Perdeu", "Você perdeu " + this.attack + " pontos de vida. Você foi derrotado!", 2);
+			Tool.dialog("Derrota!",
+					"Você perdeu " + this.attack + " pontos de vida.\nVocê teve sua cabeça arrancada do seus ombros!",
+					2);
 			target.takeDamage(getAttack());
 		}
 	}
@@ -60,7 +62,9 @@ public class Monster {
 
 	public void status() {
 		Tool.dialog("Status do Inimigo",
-				"---Inimigo---\n" + "Level: " + this.level + "\n" + "Vida: " + df.format(this.life), 1);
+				"---Inimigo---\nLevel: " + this.level + "\nVida: " + formated_float.format(this.life) + "\nForça: "
+						+ this.strength + "\nDestreza: " + this.dexterity + "\nSouls: " + this.souls,
+				1);
 	}
 
 	public void takeDamage(float targetAttack) {

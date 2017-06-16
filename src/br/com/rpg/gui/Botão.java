@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Botão extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private JButton attack = new JButton("Atacar");
 	private JButton rest = new JButton("Descansar");
 	private ButtonHandler handler;

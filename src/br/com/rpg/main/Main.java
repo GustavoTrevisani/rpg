@@ -8,9 +8,10 @@ public class Main {
 
 	static Player hero = new Player();
 	static Monster enemy = new Monster();
+	
 
 	public static void main(String[] args) {
-
+		
 		hero.createPlayer(1); // criando status do player com o level "1"
 
 		while (hero.isAlive()) {

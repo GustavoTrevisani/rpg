@@ -13,71 +13,79 @@ public class Player {
 	protected String name = "";
 	protected Integer level = 0;
 	protected float life = 0;
-	protected Integer maxlife = 0;
+	protected Integer max_life = 0;
 	protected Integer strength = 0;
-	protected Integer maxstrength = 0;
+	protected Integer max_strength = 0;
 	protected Integer dexterity = 0;
-	protected Integer maxdexterity = 0;
+	protected Integer max_dexterity = 0;
+	protected Integer health_potion = 0;
+	protected Integer max_health_potion = 0;
 	protected static String action = "";
 	protected float attack;
 	protected Integer souls = 0;
 	protected String[] options = { "" };
-	static ArrayList<String> opções = new ArrayList<String>();
-	DecimalFormat df = new DecimalFormat("#.##");
+	static ArrayList<String> options_list = new ArrayList<String>();
+	DecimalFormat formated_float = new DecimalFormat("#.##");
 
 	public void createPlayer(Integer level) {
 		setName();
 		this.level = level;
-		this.maxlife = level + 9;
-		this.life = this.maxlife;
-		this.maxstrength = level;
-		this.strength = maxstrength;
-		this.maxdexterity = level;
-		this.dexterity = this.maxdexterity;
+		this.max_life = level + 9;
+		this.life = this.max_life;
+		this.max_strength = level;
+		this.strength = max_strength;
+		this.max_dexterity = level;
+		this.dexterity = this.max_dexterity;
 	}
 
 	public void upgradeStatus() {
 
 		int x = 0;
-		String[] options = { "Life", "Strength", "Dexterity" };
-		String stat = options[Tool.inputDialogOptions("Upgrade de atributo", "Qual atributo você quer melhorar?",
-				options)];
+		String[] options = { "Vida", "Força", "Destreza" };
+		String stat = options[Tool.inputDialogOptions("Upgrade de atributo",
+				"Você possui " + this.souls + " souls.\nQual atributo você quer melhorar?", options)];
 		while (x == 0) {
 
-			if (stat.equalsIgnoreCase("life")) {
+			if (stat.equalsIgnoreCase("Vida")) {
 				if (this.souls >= (this.level * 2)) {
-					this.maxlife = this.maxlife + 5;
-					this.life = this.maxlife;
+					this.max_life = this.max_life + 5;
+					this.life = this.max_life;
 					this.souls = this.souls - (this.level * 2);
 					this.level++;
 					Tool.dialog("Atributo melhorado", "Você aprimorou sua vida em 5 pontos.", 2);
 					break;
 				} else {
-					Tool.dialog("Negado", "Você não tem souls o suficiente para isto", 0);
+					Tool.dialog("Negado",
+							"Você não tem souls o suficiente.\nVocê precisa de " + this.level * 2 + " souls para isto.",
+							0);
 					break;
 				}
-			} else if (stat.equalsIgnoreCase("strength")) {
+			} else if (stat.equalsIgnoreCase("Força")) {
 				if (this.souls >= (this.level * 2)) {
-					this.maxstrength++;
-					this.strength = this.maxstrength;
+					this.max_strength++;
+					this.strength = this.max_strength;
 					this.souls = this.souls - (this.level * 2);
 					this.level++;
 					Tool.dialog("Atributo melhorado", "Você aprimorou sua força em 1 ponto.", 2);
 					break;
 				} else {
-					Tool.dialog("Negado", "Você não tem souls o suficiente para isto", 0);
+					Tool.dialog("Negado",
+							"Você não tem souls o suficiente\nVocê precisa de " + this.level * 2 + " souls para isto.",
+							0);
 					break;
 				}
-			} else if (stat.equalsIgnoreCase("dexterity")) {
+			} else if (stat.equalsIgnoreCase("Destreza")) {
 				if (this.souls >= (this.level * 2)) {
-					this.maxdexterity++;
-					this.dexterity = this.maxdexterity;
+					this.max_dexterity++;
+					this.dexterity = this.max_dexterity;
 					this.souls = this.souls - (this.level * 2);
 					this.level++;
-					Tool.dialog("Atributo melhorado", "Você aprimorou sua dextreza em 1 ponto  .", 2);
+					Tool.dialog("Atributo melhorado", "Você aprimorou sua Destreza em 1 ponto  .", 2);
 					break;
 				} else {
-					Tool.dialog("Negado", "Você não tem souls o suficiente para isto", 0);
+					Tool.dialog("Negado",
+							"Você não tem souls o suficiente\nVocê precisa de " + this.level * 2 + " souls para isto.",
+							0);
 					break;
 				}
 			} else {
@@ -97,9 +105,9 @@ public class Player {
 
 	public void status() {
 		Tool.dialog("Status do Personagem",
-				"Nome: " + this.name + "\n" + "Level: " + this.level + "\n" + "Vida: " + df.format(this.life) + "\n"
-						+ "Força: " + this.strength + "\n" + "Dextreza: " + this.dexterity + "\n" + "Souls: "
-						+ this.souls,
+				"Nome: " + this.name + "\nLevel: " + this.level + "\nVida: " + formated_float.format(this.life)
+						+ "\nForça: " + this.strength + "\nDestreza: " + this.dexterity + "\nPoções de vida: "
+						+ this.health_potion + "\nSouls: " + this.souls,
 				1);
 	}
 
@@ -108,13 +116,44 @@ public class Player {
 	}
 
 	public void rest() {
-		if (this.life < this.maxlife) {
-			this.life = this.maxlife;
+		if (this.life < this.max_life) {
+			this.life = this.max_life;
 			Tool.dialog("Restaurando vida",
 					"Você restaurou sua de vida, agora você possui " + this.life + " pontos de vida!", 0);
 		} else {
 			Tool.dialog("Negado", "Você já está totalmente restaurado!", 0);
 		}
+	}
+
+	public void useHealthPotion() {
+		if (this.health_potion >= 1) {
+			if (this.life + (this.max_life / 4) <= this.max_life) {
+				this.life = this.life + (this.max_life / 4);
+				this.health_potion--;
+				Tool.dialog("", "Você bebeu uma poção de vida e restaurou " + this.max_life / 4 + " pontos de vida.\n"
+						+ "Agora você possui " + this.health_potion + " poções de vida", 2);
+			}
+		} else {
+			Tool.dialog("Negado", "Você não possui poções de vida!", 2);
+		}
+	}
+
+	public void buyHealthPotion() {
+		this.max_health_potion = this.level;
+		if (this.health_potion < this.max_health_potion) {
+			if (this.souls >= this.level * 2) {
+				this.health_potion++;
+				Tool.dialog("Item no inventário...",
+						"Você comprou uma poção de vida.\nAgora você possui " + this.health_potion + " poções de vida.",
+						2);
+				this.souls = this.souls - this.level * 2;
+			}
+		}else{
+			Tool.dialog("Negado",
+					"Você não tem souls o suficiente\nVocê precisa de " + this.level * 2 + " souls para isto.",
+					0);
+		}
+
 	}
 
 	public void attack(Monster target) {
@@ -134,7 +173,7 @@ public class Player {
 				} else {
 					Tool.dialog("Causou um golpe!.",
 							"Você acertou o inimigo. O inimigo perdeu " + this.attack + " pontos de vida."
-									+ " Agora ele possui " + df.format(target.getLife() - this.attack)
+									+ " Agora ele possui " + formated_float.format(target.getLife() - this.attack)
 									+ " pontos de vida",
 							2);
 					target.takeDamage(getAttack());
@@ -182,22 +221,23 @@ public class Player {
 	}
 
 	public String[] setOptions() {
-		opções.clear();
-
+		options_list.clear();
 		if (Battle.isBattleOn()) {
-			opções.add("Atacar");
-			opções.add("Hero Status");
-			opções.add("Enemy Status");
-			opções.add("Fugir");
+			options_list.add("Atacar");
+			options_list.add("Poção de vida");
+			options_list.add("Hero Status");
+			options_list.add("Enemy Status");
+			options_list.add("Fugir");
 		}
 		if (!Battle.isBattleOn()) {
-			opções.add("Descansar");
-			opções.add("Hero Status");
-			opções.add("Upgrade");
-			opções.add("Explorar Dungeon");
+			options_list.add("Descansar");
+			options_list.add("Hero Status");
+			options_list.add("Upgrade");
+			options_list.add("Comprar Poção de Vida");
+			options_list.add("Explorar Dungeon");
 
 		}
-		this.options = opções.toArray(new String[opções.size()]);
+		this.options = options_list.toArray(new String[options_list.size()]);
 		return options;
 	}
 }

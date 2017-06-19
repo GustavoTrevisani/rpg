@@ -38,7 +38,7 @@ public class ActionHandler {
 		}
 		if (action.equalsIgnoreCase("Explorar Dungeon")) {
 			Battle.setBattleOn(true);
-			enemy.createMonster(hero.getLevel());
+			enemy.createMonster(hero);
 			Battle.Batalha(hero, enemy);
 		}
 		if (action.equalsIgnoreCase("Poção de vida")) {

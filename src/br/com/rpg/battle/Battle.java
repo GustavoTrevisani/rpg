@@ -17,7 +17,6 @@ public class Battle {
 				enemy.attack(hero);
 			} else {
 				battle_status = false;
-				hero.setSouls(enemy);
 				break;
 			}
 		}
